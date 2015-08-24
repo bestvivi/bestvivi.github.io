@@ -535,6 +535,10 @@ article footer .addthis {
 article footer .addthis iframe {
   margin-top: 0;
 }
+.share {
+  padding: 0px 75px 30px 40px;
+  margin-bottom: 15px;
+}
 #comment {
   padding: 20px;
   background: #fff;
