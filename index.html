@@ -219,6 +219,70 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2015-08-25T03:57:13.226Z"><a href="/2015/08/25/Git在本地新建仓库并提交到Github/">2015-08-25</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2015/08/25/Git在本地新建仓库并提交到Github/">Git在本地新建仓库并提交到Github</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p><a href="https://github.com/" target="_blank" rel="external">Github</a>作为当前使用最广的开源代码库以及版本控制系统，在码农圈受到的极大欢迎。<br>本人作为一只小白，虽然很早就了解github，但并未在实际开发中真正使用上。这篇文章只是一次实践尝试，通过git命令在本地新建仓库并提交到github远程服务器。</p>
+<h3 id="创建本地仓库">创建本地仓库</h3><hr>
+<p><strong>仓库</strong>，又名版本库，英文名<strong>repository</strong>，可以理解成我们项目所在的目录，这个目录下面的所有文件都可以被Git管理，每个文件的修改、删除，Git都可以追踪历史。</p>
+<p>首先创建一个本地项目，如下结构</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">	<span class="preprocessor"># ls -l</span></span><br><span class="line">total <span class="number">16</span></span><br><span class="line">drwxr-xr-x <span class="number">2</span> root root <span class="number">4096</span> Aug <span class="number">25</span> <span class="number">03</span>:<span class="number">03</span> <span class="built_in">log</span></span><br><span class="line">-rwxr-xr-x <span class="number">1</span> root root <span class="number">8540</span> Aug <span class="number">18</span> <span class="number">07</span>:<span class="number">44</span> transportmail.py</span><br></pre></td></tr></table></figure>
+<p>为本地项目创建仓库，进入项目目录，执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bestvivi <span class="built_in">test</span>]<span class="comment"># git init</span></span><br><span class="line">Initialized empty Git repository <span class="keyword">in</span> /root/<span class="built_in">test</span>/.git/</span><br></pre></td></tr></table></figure>
+<p><code>git init</code>只是初始化了仓库(会在当前目录下生成一个<code>.git</code>隐藏文件)，但还并未将项目文件提交到仓库，接下来执行</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">	# git add .</span><br><span class="line">	# git <span class="operator"><span class="keyword">commit</span> -<span class="keyword">m</span> <span class="string">"first commit"</span></span><br><span class="line">[<span class="keyword">master</span> (root-<span class="keyword">commit</span>) a2108e0] <span class="keyword">first</span> <span class="keyword">commit</span></span><br><span class="line"> <span class="number">1</span> <span class="keyword">file</span> <span class="keyword">changed</span>, <span class="number">257</span> insertions(+)</span><br><span class="line"> <span class="keyword">create</span> <span class="keyword">mode</span> <span class="number">100755</span> transportmail.py</span></span><br></pre></td></tr></table></figure>
+<p><code>git add</code>是将当前目录下的项目文件添加到仓库，<code>git commit</code>顾名思义就是提交修改。接下来就可以将本地项目push到远程github上保存了。</p>
+<h3 id="提交本地项目到远程仓库">提交本地项目到远程仓库</h3><hr>
+<p>首先添加本地<strong>VPS</strong>服务器公钥认证到Github并建立安全连接，方便后续的代码提交。在Github上创建一个远程仓库并命名，用于存放本地仓库的提交。</p>
+<p>创建远程仓库的标志</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># git remote add origin git<span class="doctag">@github</span>.com:bestvivi/mailtransport.git</span></span><br></pre></td></tr></table></figure>
+<p>其中origin是远程仓库的别名，可以随便起，默认是origin；git@github.com:bestvivi/mailtransport.git就是ssh连接到远程仓库的路径</p>
+<p>查看添加的远程仓库</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">	# <span class="tag">git</span> <span class="tag">remote</span> <span class="tag">-v</span></span><br><span class="line"><span class="tag">origin</span>	<span class="tag">git</span>@<span class="tag">github</span><span class="class">.com</span><span class="pseudo">:bestvivi</span>/<span class="tag">mailtransport</span><span class="class">.git</span> (fetch)</span><br><span class="line"><span class="tag">origin</span>	<span class="tag">git</span>@<span class="tag">github</span><span class="class">.com</span><span class="pseudo">:bestvivi</span>/<span class="tag">mailtransport</span><span class="class">.git</span> (push)</span><br></pre></td></tr></table></figure>
+<p>将本地仓库push到远程仓库</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">	<span class="preprocessor"># git push origin master</span></span><br><span class="line">Counting objects: <span class="number">3</span>, done.</span><br><span class="line">Compressing objects: <span class="number">100</span>% (<span class="number">2</span>/<span class="number">2</span>), done.</span><br><span class="line">Writing objects: <span class="number">100</span>% (<span class="number">3</span>/<span class="number">3</span>), <span class="number">2.89</span> KiB | <span class="number">0</span> bytes/s, done.</span><br><span class="line">Total <span class="number">3</span> (delta <span class="number">0</span>), reused <span class="number">0</span> (delta <span class="number">0</span>)</span><br><span class="line">remote: To git@github.com:bestvivi/mailtransport.git</span><br><span class="line"> * [<span class="keyword">new</span> branch]      master -&gt; master</span><br></pre></td></tr></table></figure>
+<p>其中master是本地仓库的主干分支，至此，已经完成了将本地仓库提交到Github的工作。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+  <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2015-08-24T07:26:22.235Z"><a href="/2015/08/24/hello-world/">2015-08-24</a></time>
       
       
@@ -309,6 +373,8 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
+    <li><a href="/categories/Git/">Git</a><small>1</small></li>
+  
     <li><a href="/categories/test/">test</a><small>2</small></li>
   
   </ul>
@@ -319,6 +385,8 @@
 <div class="widget tag">
   <h3 class="title">标签</h3>
   <ul class="entry">
+  
+    <li><a href="/tags/Git/">Git</a><small>1</small></li>
   
     <li><a href="/tags/markdown/">markdown</a><small>1</small></li>
   
@@ -332,7 +400,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/test/" style="font-size: 10px;">test</a>
+    <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/test/" style="font-size: 10px;">test</a>
   </div>
 </div>
 
