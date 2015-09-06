@@ -4,27 +4,27 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Amobe实现MySQL读写分离 | viviのblog</title>
+    <title>Amoebe实现MySQL读写分离 | viviのblog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="vivi">
     
 
     
-    <meta name="description" content="Amobe介绍
+    <meta name="description" content="Amoebe介绍
 Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba for Mysql软件。
 这个软件基于Java致力于MySQL的分布式数据库前端代理层，处于在应用和数据库之间，对客户端透明，它主要在应用层访问MySQL的时候充当SQL路由功能，解析应用传递过来的SQL语句，专注于分布式数据库代理层（Database Proxy）开发。具有负载均衡、高可用性、SQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Amobe实现MySQL读写分离">
+<meta property="og:title" content="Amoebe实现MySQL读写分离">
 <meta property="og:url" content="http://bestvivi.com/2015/09/06/Amobe实现MySQL读写分离/index.html">
 <meta property="og:site_name" content="viviのblog">
-<meta property="og:description" content="Amobe介绍
+<meta property="og:description" content="Amoebe介绍
 Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba for Mysql软件。
 这个软件基于Java致力于MySQL的分布式数据库前端代理层，处于在应用和数据库之间，对客户端透明，它主要在应用层访问MySQL的时候充当SQL路由功能，解析应用传递过来的SQL语句，专注于分布式数据库代理层（Database Proxy）开发。具有负载均衡、高可用性、SQL">
-<meta property="og:updated_time" content="2015-09-06T07:42:23.519Z">
+<meta property="og:updated_time" content="2015-09-06T09:39:05.210Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Amobe实现MySQL读写分离">
-<meta name="twitter:description" content="Amobe介绍
+<meta name="twitter:title" content="Amoebe实现MySQL读写分离">
+<meta name="twitter:description" content="Amoebe介绍
 Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba for Mysql软件。
 这个软件基于Java致力于MySQL的分布式数据库前端代理层，处于在应用和数据库之间，对客户端透明，它主要在应用层访问MySQL的时候充当SQL路由功能，解析应用传递过来的SQL语句，专注于分布式数据库代理层（Database Proxy）开发。具有负载均衡、高可用性、SQL">
 
@@ -76,7 +76,7 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/06/Amobe实现MySQL读写分离/" title="Amobe实现MySQL读写分离" itemprop="url">Amobe实现MySQL读写分离</a>
+      <a href="/2015/09/06/Amobe实现MySQL读写分离/" title="Amoebe实现MySQL读写分离" itemprop="url">Amoebe实现MySQL读写分离</a>
   </h1>
   <p class="article-author">By
        
@@ -92,11 +92,11 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Amobe介绍"><span class="toc-number">1.</span> <span class="toc-text">Amobe介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Amobe实现读写分离配置"><span class="toc-number">2.</span> <span class="toc-text">Amobe实现读写分离配置</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Amoebe介绍"><span class="toc-number">1.</span> <span class="toc-text">Amoebe介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Amoebe实现读写分离配置"><span class="toc-number">2.</span> <span class="toc-text">Amoebe实现读写分离配置</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="Amobe介绍">Amobe介绍</h3><hr>
+		<h3 id="Amoebe介绍">Amoebe介绍</h3><hr>
 <p><a href="http://docs.hexnova.com/amoeba/index.html" target="_blank" rel="external">Amoeba(变形虫)</a>项目，该开源框架于2008年 开始发布一款 Amoeba for Mysql软件。</p>
 <p>这个软件基于Java致力于<strong>MySQL的分布式数据库前端代理层</strong>，处于在应用和数据库之间，对客户端透明，它主要在应用层访问MySQL的时候充当<strong>SQL路由功能</strong>，解析应用传递过来的SQL语句，专注于分布式数据库代理层（Database Proxy）开发。具有负载均衡、高可用性、SQL 过滤、读写分离、可路由相关的到目标数据库、可并发请求多台数据库合并结果。 通过Amoeba能够完成多数据源的高可用、负载均衡、数据切片的功能，目前Amoeba已在很多企业的生产线上面使用。</p>
 <p>优点：Amoeba已经具有Query路由，Query过滤，读写分离，负载均衡以及HA机制等相关内容。</p>
@@ -108,17 +108,17 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
 <li>降低数据库与客户端的连接数；</li>
 <li>读写分离路由；</li>
 </ol>
-<h3 id="Amobe实现读写分离配置">Amobe实现读写分离配置</h3><hr>
+<h3 id="Amoebe实现读写分离配置">Amoebe实现读写分离配置</h3><hr>
 <p>安装环境如下</p>
 <p>master    192.168.1.5    rac1-node.tp-link.net</p>
 <p>slave    192.168.1.6    rac2-node.tp-link.net</p>
-<p>amobe    192.168.1.2    poprodbak.tp-link.net</p>
+<p>amoebe    192.168.1.2    poprodbak.tp-link.net</p>
 <p>安装amoeba前要安装jdk，因为amoeba是由java开发的。同时设置JAVA_HOME</p>
 <p><strong>下载ameba软件</strong><br>使用<a href="http://sourceforge.net/projects/amoeba/files/Amoeba%20for%20mysql/2.2.x/" target="_blank" rel="external">amoeba稳定版</a></p>
 <pre><code><span class="preprocessor"># mkdir amoeba </span>
 <span class="preprocessor"># cd amoeba</span>
 <span class="preprocessor"># tar -zxvf amoeba-mysql-binary-2.2.0.tar.gz</span>
-</code></pre><p><strong>配置amobe</strong></p>
+</code></pre><p><strong>配置amoebe</strong></p>
 <p>解压完以后，下面进行配置。在conf目录下可以看到很多.xml后缀的文件。其中</p>
 <p>amoeba.xml是对amoeba代理的配置，定义读写分离的节点管理信息；</p>
 <p>dbServers.xml是对后端service的配置，定义数据库的信息；</p>
@@ -193,7 +193,7 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
         <span class="tag">&lt;/<span class="title">dbServer</span>&gt;</span> 
 
 <span class="tag">&lt;/<span class="title">amoeba:dbServers</span>&gt;</span>
-</code></pre><p>配置amobe.xml</p>
+</code></pre><p>配置amoebe.xml</p>
 <pre><code>&lt;!<span class="comment">-- port --&gt; </span>
                         &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"port"</span>&gt;<span class="number">8066</span>&lt;/<span class="keyword">property</span>&gt; 
                         \\定义amoeba读写分离proxy对外代理的端口
@@ -225,7 +225,7 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
                 &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"readPool"</span>&gt; readPool &lt;/<span class="keyword">property</span>&gt; 
                    \\定义读的池，这里的readPool就是在dbserver.xml中的readPool
                 &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"needParse"</span>&gt;<span class="constant">true</span>&lt;/<span class="keyword">property</span>&gt; 
-</code></pre><p><strong>启动amobe</strong></p>
+</code></pre><p><strong>启动amoebe</strong></p>
 <pre><code><span class="preprocessor"># ./amoeba start &amp;</span>
 [<span class="number">1</span>] <span class="number">2381</span>
 <span class="preprocessor"># netstat -tlnp | grep <span class="number">8066</span></span>
@@ -265,7 +265,7 @@ E..4F.@.@.p.............&gt;K.X..Ac...........
 <p>Mysql-proxy    0.27    0.27    0.28    0.29    0.26    0.274</p>
 <p>Amoeba    0.23    0.26    0.33    0.25    0.34    0.282</p>
 <p>分别插入14W条数据，proxy平均为1.8S，amoeba平均为1.95S。</p>
-<p>可以看出mysqlproxy和amobe几无差别，可能是因为数据量比较小。</p>
+<p>可以看出mysqlproxy和amoebe几无差别，可能是因为数据量比较小。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -336,7 +336,7 @@ E..4F.@.@.p.............&gt;K.X..Ac...........
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/09/06/Amobe实现MySQL读写分离/" data-title="Amobe实现MySQL读写分离" data-url="http://bestvivi.com/2015/09/06/Amobe实现MySQL读写分离/"></div>
+	<div class="ds-thread" data-thread-key="2015/09/06/Amobe实现MySQL读写分离/" data-title="Amoebe实现MySQL读写分离" data-url="http://bestvivi.com/2015/09/06/Amobe实现MySQL读写分离/"></div>
 </section>
 
 
