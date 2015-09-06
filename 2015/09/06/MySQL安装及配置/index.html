@@ -27,7 +27,7 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 # wget http://down1.chinaunix.net/distfiles/cmake-2.8.10.2.tar.gz
 
 # tar zxvf cmake-2.8.10.2.tar.gz">
-<meta property="og:updated_time" content="2015-09-06T03:46:53.923Z">
+<meta property="og:updated_time" content="2015-09-06T03:49:14.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL安装及配置">
 <meta name="twitter:description" content="MySQL安装
@@ -159,7 +159,8 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 <pre><code><span class="preprocessor"># service mysqld start</span>
 </code></pre><p>修改mysql密码</p>
 <pre><code><span class="preprocessor"># mysqladmin -u root password <span class="string">'root'</span></span>
-</code></pre><h3 id="MySQL常用配置">MySQL常用配置</h3><p>修改字符编码<br>在[mysqld]下面添加：</p>
+</code></pre><h3 id="MySQL常用配置">MySQL常用配置</h3><hr>
+<p>修改字符编码<br>在[mysqld]下面添加：</p>
 <p><code>default-character-set=utf8</code></p>
 <p>设置数据库最大连接数</p>
 <p><code>max_connections=1000</code></p>
