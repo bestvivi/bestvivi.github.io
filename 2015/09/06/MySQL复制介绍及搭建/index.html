@@ -29,7 +29,7 @@ MySQL复制有那些好处：
 第二点是减轻数据库服务器的压力，多台服务器的性能一般比单台要好。但是MySQL复制不适合大数据量，大数">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql复制01.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql复制02.png">
-<meta property="og:updated_time" content="2015-09-06T03:26:29.814Z">
+<meta property="og:updated_time" content="2015-09-06T03:30:39.837Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL复制介绍及搭建">
 <meta name="twitter:description" content="MySQL复制介绍
@@ -249,8 +249,8 @@ mysql&gt; show tables;
 +------+</span>
 </code></pre><p>通过以上验证，可以看到主服务器上的修改能够正常同步到从服务器。</p>
 <h3 id="其他复制方式">其他复制方式</h3><hr>
-<h4 id="主主复制">主主复制</h4><p>master-slave只能进行单向操作，像网络中的半双工。master-master可以实现服务器之间互相同步。<strong>主主复制最大的问题就是数据插入或更新冲突</strong>。配置方法同主从复制，反过来让slave同步master。注意master_log_file和master_log_pos参数要与master上对应。具体可以参考<a href="https://www.howtoforge.com/mysql_master_master_replication" target="_blank" rel="external">这里</a></p>
-<h4 id="单一master和多slave">单一master和多slave</h4><p>由一个master和多个slave组成的复制系统比较简单。slave之间并不互相通信，只能与master通信。如果写操作较少，读操作很多，可以采用。可以将读操作分布到其他slave，从而减轻master的压力。但slave增加到一定数量时，slave对master的负载以及网络带宽都会成为问题。</p>
+<h4 id="主主复制">主主复制</h4><p>master-slave只能进行单向操作，像网络中的半双工。master-master可以实现服务器之间互相同步。<strong>主主复制最大的问题就是数据插入或更新冲突</strong>。配置方法同主从复制，反过来让slave同步master。注意master_log_file和master_log_pos参数要与master上对应。具体可以参考<a href="https://www.howtoforge.com/mysql_master_master_replication" target="_blank" rel="external">这里</a><br><br></p>
+<h4 id="单一master和多slave">单一master和多slave</h4><p>由一个master和多个slave组成的复制系统比较简单。slave之间并不互相通信，只能与master通信。如果写操作较少，读操作很多，可以采用。可以将读操作分布到其他slave，从而减轻master的压力。但slave增加到一定数量时，slave对master的负载以及网络带宽都会成为问题。<br><br></p>
 <h4 id="主从多级复制">主从多级复制</h4><p>读操作很多可以采用单一maste和多slave，但增大到一定slave后连到master的slaveIO线程太多会造成master压力增大，从而造成数据复制延时。多级复制就是为了解决这个问题。</p>
 <p><img src="http://blogyangwei.qiniudn.com/mysql复制02.png" alt="mysql多级复制"></p>
 <p>当然，增加复制的级联层次，同一个变更传到最底层的Slave所需要经过的MySQL也会更多，同样可能造成延时较长的风险。如果条件允许，倾向于通过拆分成多个Replication集群来解决</p>
