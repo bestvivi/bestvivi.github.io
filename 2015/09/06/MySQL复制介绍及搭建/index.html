@@ -4,22 +4,37 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>viviのblog</title>
+    <title>MySQL复制介绍及搭建 | viviのblog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="vivi">
     
 
     
-    <meta name="description" content="vivi の blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="viviのblog">
-<meta property="og:url" content="http://bestvivi.com/index.html">
+    <meta name="description" content="MySQL复制介绍MySQL复制就是一台MySQL服务器（slave）从另一台MySQL服务器（master）进行日志的复制然后再解析日志并应用到自身，类似Oracle中的Data Guard。
+MySQL复制有那些好处：
+
+第一是解决宕机带来的数据不一致，因为MySQL复制可以实时备份数据；
+第二点是减轻数据库服务器的压力，多台服务器的性能一般比单台要好。但是MySQL复制不适合大数据量，大数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL复制介绍及搭建">
+<meta property="og:url" content="http://bestvivi.com/2015/09/06/MySQL复制介绍及搭建/index.html">
 <meta property="og:site_name" content="viviのblog">
-<meta property="og:description" content="vivi の blog">
+<meta property="og:description" content="MySQL复制介绍MySQL复制就是一台MySQL服务器（slave）从另一台MySQL服务器（master）进行日志的复制然后再解析日志并应用到自身，类似Oracle中的Data Guard。
+MySQL复制有那些好处：
+
+第一是解决宕机带来的数据不一致，因为MySQL复制可以实时备份数据；
+第二点是减轻数据库服务器的压力，多台服务器的性能一般比单台要好。但是MySQL复制不适合大数据量，大数据">
+<meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql复制01.png">
+<meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql复制02.png">
+<meta property="og:updated_time" content="2015-09-06T03:02:03.559Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="viviのblog">
-<meta name="twitter:description" content="vivi の blog">
+<meta name="twitter:title" content="MySQL复制介绍及搭建">
+<meta name="twitter:description" content="MySQL复制介绍MySQL复制就是一台MySQL服务器（slave）从另一台MySQL服务器（master）进行日志的复制然后再解析日志并应用到自身，类似Oracle中的Data Guard。
+MySQL复制有那些好处：
+
+第一是解决宕机带来的数据不一致，因为MySQL复制可以实时备份数据；
+第二点是减轻数据库服务器的压力，多台服务器的性能一般比单台要好。但是MySQL复制不适合大数据量，大数据">
 
     
     
@@ -63,12 +78,10 @@
 
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/09/06/MySQL复制介绍及搭建/" title="MySQL复制介绍及搭建" itemprop="url">MySQL复制介绍及搭建</a>
@@ -82,9 +95,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h3 id="MySQL复制介绍">MySQL复制介绍</h3><p>MySQL复制就是一台MySQL服务器（slave）从另一台MySQL服务器（master）进行日志的复制然后再解析日志并应用到自身，类似Oracle中的Data Guard。</p>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL复制介绍"><span class="toc-number">1.</span> <span class="toc-text">MySQL复制介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL复制搭建"><span class="toc-number">2.</span> <span class="toc-text">MySQL复制搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#环境准备"><span class="toc-number">2.1.</span> <span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Master配置"><span class="toc-number">2.2.</span> <span class="toc-text">Master配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Slave设置"><span class="toc-number">2.3.</span> <span class="toc-text">Slave设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">2.4.</span> <span class="toc-text">测试</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他复制方式"><span class="toc-number">3.</span> <span class="toc-text">其他复制方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#主主复制"><span class="toc-number">3.1.</span> <span class="toc-text">主主复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#单一master和多slave"><span class="toc-number">3.2.</span> <span class="toc-text">单一master和多slave</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主从多级复制"><span class="toc-number">3.3.</span> <span class="toc-text">主从多级复制</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h3 id="MySQL复制介绍">MySQL复制介绍</h3><p>MySQL复制就是一台MySQL服务器（slave）从另一台MySQL服务器（master）进行日志的复制然后再解析日志并应用到自身，类似Oracle中的Data Guard。</p>
 <p>MySQL复制有那些好处：</p>
 <ul>
 <li>第一是解决宕机带来的数据不一致，因为MySQL复制可以实时备份数据；</li>
@@ -228,14 +248,9 @@ mysql&gt; show tables;
 <h4 id="主从多级复制">主从多级复制</h4><p>读操作很多可以采用单一maste和多slave，但增大到一定slave后连到master的slaveIO线程太多会造成master压力增大，从而造成数据复制延时。多级复制就是为了解决这个问题。</p>
 <p><img src="http://blogyangwei.qiniudn.com/mysql复制02.png" alt="mysql多级复制"></p>
 <p>当然，增加复制的级联层次，同一个变更传到最底层的Slave所需要经过的MySQL也会更多，同样可能造成延时较长的风险。如果条件允许，倾向于通过拆分成多个Replication集群来解决</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
@@ -253,186 +268,61 @@ mysql&gt; show tables;
 
 
 
-
-<div class="comments-count">
+	<div class="article-share" id="share">
 	
-	  	<span></span>
-		<a href="/2015/09/06/MySQL复制介绍及搭建/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/06/MySQL复制介绍及搭建/" data-count-type="comments">&nbsp;</a>
-	
+	<div class="share-jiathis">
+	  
+<div class="jiathis_style_24x24">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_douban"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
 </div>
+<script type="text/javascript" >
+    var jiathis_config={
+    data_track_clickback:true,
+    sm:"copy,renren,cqq",
+    pic:"",
+    summary:"",
+    
+  </script> 
+<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=
+" charset="utf-8"></script>      
+
+	 </div>
+	
+	</div>
+
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/08/25/Git在本地新建仓库并提交到Github/" title="Git在本地新建仓库并提交到Github" itemprop="url">Git在本地新建仓库并提交到Github</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-25T07:12:20.000Z" itemprop="datePublished"> 发表于 2015-08-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="https://github.com/">Github</a>作为当前使用最广的开源代码库以及版本控制系统，在码农圈受到的极大欢迎。<br/>本人作为一只小白，虽然很早就了解github，但并未在实际开发中真正使用上。这篇文章只是一次实践尝试，通过git命令在本地新建仓库并提交到github远程服务器。<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/08/25/Git在本地新建仓库并提交到Github/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Git/">Git</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Git/">Git</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
-	  	<span></span>
-		<a href="/2015/08/25/Git在本地新建仓库并提交到Github/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/08/25/Git在本地新建仓库并提交到Github/" data-count-type="comments">&nbsp;</a>
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/08/25/Git在本地新建仓库并提交到Github/"  title="Git在本地新建仓库并提交到Github">
+ <strong>下一篇：</strong><br/> 
+ <span>Git在本地新建仓库并提交到Github
+</span>
+</a>
+</div>
+
+</nav>
+
 	
-</div>
-
-</footer>
-
-
-    </article>
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/09/06/MySQL复制介绍及搭建/" data-title="MySQL复制介绍及搭建" data-url="http://bestvivi.com/2015/09/06/MySQL复制介绍及搭建/"></div>
+</section>
 
 
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/08/24/markdown参考/" title="Markdown参考" itemprop="url">Markdown参考</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-24T07:12:20.000Z" itemprop="datePublished"> 发表于 2015-08-24</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <a id="more"></a>
-<h1 id="一级标题">一级标题</h1><h2 id="二级标题">二级标题</h2><h3 id="三级标题">三级标题</h3><h4 id="四级标题">四级标题</h4><h5 id="五级标题">五级标题</h5><h6 id="六级标题">六级标题</h6><p><strong>我是粗体</strong></p>
-<p><em>我是斜体</em></p>
-<ul>
-<li>列表行1，可以用*号或+号替代哦<ul>
-<li>列1 列表中嵌套列表</li>
-<li>列2</li>
-<li>列3</li>
-<li>列4</li>
-</ul>
-</li>
-</ul>
-<p><br></p>
-<ol>
-<li>n1</li>
-<li>n2</li>
-<li>n3</li>
-<li>n4</li>
-</ol>
-<blockquote>
-<h3 id="引用_也可以嵌套">引用 也可以嵌套</h3><ol>
-<li>n1</li>
-<li>n2</li>
-<li>n3</li>
-</ol>
-</blockquote>
-<hr>
-<p>我是分割线</p>
-<hr>
-<p><code>一小段代码</code><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">又是一段代码</span><br></pre></td></tr></table></figure></p>
-<pre><code>这是代码段，使用tab键可以输入内容，哈哈哈
-
-<span class="keyword">Let</span><span class="comment">'s go!</span>
-</code></pre><p><br></p>
-<h2 id="链接">链接</h2><p>这是一个链接啦，<a href="http://www.baidu.com" target="_blank" rel="external">点我，我是百度</a></p>
-<p>这也是一个链接哦，<a href="E:\DBA" target="_blank" rel="external">关于我的E盘</a></p>
-<p>这也是一个链接哦，<a href="http://bestvivi.com" title="哈哈">关于我</a></p>
-<p>I get 10 times more traffic from <a href="http://google.com/" title="Google" target="_blank" rel="external">Google</a> than from <a href="http://search.yahoo.com/" title="Yahoo Search" target="_blank" rel="external">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search" target="_blank" rel="external">MSN</a>.</p>
-<h2 id="图片">图片</h2><p><img src="http://7xav4c.com1.z0.glb.clouddn.com/haha.gif" alt="我揍是这么萌"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Markdown/">Markdown</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/08/24/markdown参考/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/08/24/markdown参考/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 
 <div id="asidepart">
@@ -579,6 +469,11 @@ $(document).ready(function(){
     o.css("top",Math.max(80,260-$(this).scrollTop()));
   });
   
+        getSize();
+        if (myWidth >= 1024) {
+          c.click();
+        }
+  
   $(window).resize(function(){
     getSize(); 
     if (myWidth >= 1024) {
@@ -589,6 +484,32 @@ $(document).ready(function(){
       o.css('display', 'none');
         
     }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
@@ -670,4 +591,4 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
