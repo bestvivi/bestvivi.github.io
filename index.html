@@ -71,6 +71,73 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/09/06/MySQL读写分离原理及搭建/" title="MySQL读写分离原理及搭建" itemprop="url">MySQL读写分离原理及搭建</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-06T12:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-06</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="MySQL读写分离原理">MySQL读写分离原理</h3><hr>
+<p>MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。<br><img src="http://blogyangwei.qiniudn.com/MySQL读写分离01.png" alt="MySQL读写分离示意图"></p>
+<p>MySQL读写分离最大的作用无非是<strong>增加架构的处理能力</strong>。对于<strong>读操作为主</strong>的应用，使用读写分离是最好的场景，因为可以确保master压力更小，而读又可以接受时间上的延迟。</p>
+<p>MySQL读写分离能提高系统性能的原因在于：<br>
+        
+        
+        <p class="article-more-link">
+          
+            <a href="/2015/09/06/MySQL读写分离原理及搭建/#more">Read More</a>
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/MySQL/">MySQL</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/06/MySQL读写分离原理及搭建/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/06/MySQL读写分离原理及搭建/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/09/06/MySQL复制介绍及搭建/" title="MySQL复制介绍及搭建" itemprop="url">MySQL复制介绍及搭建</a>
   </h1>
   <p class="article-author">By
@@ -127,203 +194,6 @@
 	
 	  	<span></span>
 		<a href="/2015/09/06/MySQL复制介绍及搭建/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/06/MySQL复制介绍及搭建/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/09/06/MySQL读写分离原理及搭建/" title="MySQL读写分离原理及搭建" itemprop="url">MySQL读写分离原理及搭建</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
-		
-  <p class="article-time">
-    <time datetime="2015-09-06T11:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="MySQL读写分离原理">MySQL读写分离原理</h3><hr>
-<p>MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。<br><img src="http://blogyangwei.qiniudn.com/MySQL读写分离01.png" alt="MySQL读写分离示意图"></p>
-<p>MySQL读写分离最大的作用无非是<strong>增加架构的处理能力</strong>。对于<strong>读操作为主</strong>的应用，使用读写分离是最好的场景，因为可以确保master压力更小，而读又可以接受时间上的延迟。</p>
-<p>MySQL读写分离能提高系统性能的原因在于：</p>
-<ul>
-<li>物理服务器增加，机器处理能力提升。拿硬件换性能。</li>
-<li>主从只负责各自的读和写，极大程度缓解X锁和S锁争用。</li>
-<li>slave可以配置myiasm引擎，提升查询性能以及节约系统开销。</li>
-<li>master直接写是并发的，slave通过主库发送来的binlog恢复数据是异步。</li>
-<li>slave可以单独设置一些参数来提升其读的性能。</li>
-<li>增加冗余，提高可用性。</li>
-</ul>
-<h3 id="MySQLProxy介绍">MySQLProxy介绍</h3><hr>
-<p>下面使用MySQL官方提供的数据库代理层产品<a href="MySQLProxy">MySQLProxy</a>。<a href="MySQLProxy">MySQLProxy</a>实际上是在客户端请求与MySQLServer之间建立了一个连接池。所有客户端请求都是发向<a href="MySQLProxy">MySQLProxy</a>，然后经由<a href="MySQLProxy">MySQLProxy</a>进行相应的分析，判断出是读操作还是写操作，分发至对应的MySQLServer上。对于多节点Slave集群，也可以起做到<strong>负载均衡</strong>的效果。</p>
-<p><img src="http://blogyangwei.qiniudn.com/MySQL读写分离02.png" alt="MySQLProxy示意图"></p>
-<h3 id="MySQL读写分离配置">MySQL读写分离配置</h3><hr>
-<p>MySQL环境准备</p>
-<p>master    192.168.1.5    rac1-node.tp-link.net</p>
-<p>slave    192.168.1.6    rac2-node.tp-link.net</p>
-<p>proxy    192.168.1.2    poprodbak.tp-link.net</p>
-<p>OS：Oracle Linux 6.1</p>
-<p>MySQL：5.5.37</p>
-<p>MySQL-proxy：mysql-proxy-0.8.4-linux-rhel5-x86-64bit.tar.gz</p>
-<h4 id="创建用户并分配权限">创建用户并分配权限</h4><pre><code>mysql&gt; create user libai identified <span class="keyword">by</span> <span class="string">'libai'</span>;
-mysql&gt; grant <span class="literal">all</span> <span class="keyword">on</span> *<span class="built_in">.</span>* <span class="keyword">to</span> libai@<span class="string">'192.168.1.%'</span> identified <span class="keyword">by</span> <span class="string">'libai'</span>;
-</code></pre><p>在配置了MySQL复制，以上操作在master执行会同步到slave节点。</p>
-<h4 id="启用MySQL复制">启用MySQL复制</h4><p>MySQL复制配置请参考<a href="http://bestvivi.com/2015/09/06/MySQL复制介绍及搭建/">这里</a></p>
-<p>先关闭并清除之前的复制。</p>
-<pre><code>mysql&gt; stop slave<span class="comment">;</span>
-mysql&gt; reset slave all<span class="comment">;</span>
-</code></pre><p>启用新的复制同步。启用之前需要清除日志</p>
-<pre><code>mysql&gt; change master to master_host=<span class="string">'192.168.1.5'</span>,master_user=<span class="string">'libai'</span>,master_password=<span class="string">'libai'</span>,master_port=<span class="number">3306</span>,master_<span class="built_in">log</span>_file=<span class="string">'mysql-bin.000001'</span>,master_<span class="built_in">log</span>_pos=<span class="number">0</span>;
-</code></pre><p>主库</p>
-<pre><code><span class="preprocessor"># mysql -h localhost -ulibai -plibai</span>
-mysql&gt; create database d;
-mysql&gt; use d;
-mysql&gt; <span class="function">create table <span class="title">t</span><span class="params">(i <span class="keyword">int</span>)</span></span>;
-mysql&gt; <span class="function">insert into t <span class="title">values</span><span class="params">(<span class="number">1</span>)</span></span>;
-</code></pre><p>从库</p>
-<pre><code><span class="header">mysql&gt; select * from t;
-+------+</span>
-<span class="header">| i    |
-+------+</span>
-|    1 |
-</code></pre><h4 id="启用MySQLProxy代理服务器">启用MySQLProxy代理服务器</h4><p>代理服务器上创建mysql用户</p>
-<pre><code><span class="preprocessor"># groupadd mysql</span>
-<span class="preprocessor"># useradd -g mysql mysql</span>
-</code></pre><p>解压启动mysql-proxy</p>
-<pre><code># ./mysql-proxy --daemon --<span class="built_in">log</span>-level=<span class="keyword">debug</span> --user=mysql --keepalive --<span class="built_in">log</span>-<span class="keyword">file</span>=/var/<span class="built_in">log</span>/mysql-proxy.<span class="built_in">log</span> --plugins=<span class="string">"proxy"</span> --proxy-backend-addresses=<span class="string">"192.168.1.5:3306"</span> --proxy-<span class="keyword">read</span>-<span class="keyword">only</span>-backend-addresses=<span class="string">"192.168.1.6:3306"</span> --proxy-<span class="keyword">lua</span>-script=<span class="string">"/root/soft/mysql-proxy/rw-splitting.lua"</span> --plugins=admin --admin-username=<span class="string">"admin"</span> --admin-password=<span class="string">"admin"</span> --admin-<span class="keyword">lua</span>-script=<span class="string">"/root/soft/mysql-proxy/lib/mysql-proxy/lua/admin.lua"</span>
-</code></pre><p> 其中proxy-backend-addresses是master服务器，proxy-read-only-backend-addresses是slave服务器。可以通过./mysql-proxy –help 查看详细说明。</p>
-<p>查看启动后进程</p>
-<pre><code><span class="preprocessor"># ps -ef | grep mysql</span>
-root     <span class="number">25721</span>     <span class="number">1</span>  <span class="number">0</span> <span class="number">11</span>:<span class="number">33</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> /root/soft/mysql-proxy/libexec/mysql-proxy --daemon --<span class="built_in">log</span>-level=debug --user=mysql --keepalive --<span class="built_in">log</span>-file=/var/<span class="built_in">log</span>/mysql-proxy.<span class="built_in">log</span> --plugins=proxy --proxy-backend-addresses=<span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span>:<span class="number">3306</span> --proxy-read-only-backend-addresses=<span class="number">192.168</span><span class="number">.1</span><span class="number">.6</span>:<span class="number">3306</span> --proxy-lua-script=/root/soft/mysql-proxy/rw-splitting.lua --plugins=admin --admin-username=admin --admin-password=admin --admin-lua-script=/root/soft/mysql-proxy/lib/mysql-proxy/lua/admin.lua
-mysql    <span class="number">25722</span> <span class="number">25721</span>  <span class="number">0</span> <span class="number">11</span>:<span class="number">33</span> ?        <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> /root/soft/mysql-proxy/libexec/mysql-proxy --daemon --<span class="built_in">log</span>-level=debug --user=mysql --keepalive --<span class="built_in">log</span>-file=/var/<span class="built_in">log</span>/mysql-proxy.<span class="built_in">log</span> --plugins=proxy --proxy-backend-addresses=<span class="number">192.168</span><span class="number">.1</span><span class="number">.5</span>:<span class="number">3306</span> --proxy-read-only-backend-addresses=<span class="number">192.168</span><span class="number">.1</span><span class="number">.6</span>:<span class="number">3306</span> --proxy-lua-script=/root/soft/mysql-proxy/rw-splitting.lua --plugins=admin --admin-username=admin --admin-password=admin --admin-lua-script=/root/soft/mysql-proxy/lib/mysql-proxy/lua/admin.lua
-</code></pre><p>4040是proxy端口，4041是admin管理端口</p>
-<pre><code><span class="preprocessor"># lsof -i:<span class="number">4040</span></span>
-COMMAND     PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
-mysql-pro <span class="number">25722</span> mysql   <span class="number">10u</span>  IPv4 <span class="number">762429</span>      <span class="number">0</span>t0  TCP *:yo-main (LISTEN)
-<span class="preprocessor"># lsof -i:<span class="number">4041</span></span>
-COMMAND     PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
-mysql-pro <span class="number">25722</span> mysql   <span class="number">11u</span>  IPv4 <span class="number">762432</span>      <span class="number">0</span>t0  TCP *:houston (LISTEN)
-</code></pre><p>####　测试<br>保证mysqlproxy节点上可执行mysql 。通过复制同步帐号连接proxy</p>
-<pre><code># mysql -h 192.168.1.2 -ulibai -p --port=4040
-<span class="header">mysql&gt; show databases;
-+--------------------+</span>
-<span class="header">| Database           |
-+--------------------+</span>
-| information<span class="emphasis">_schema |
-| d                  |
-| mysql              |
-| performance_</span>schema |
-<span class="header">| test               |
-+--------------------+</span>
-</code></pre><p>登录admin查看状态</p>
-<pre><code># mysql -h 192.168.1.2 -u admin -p --port=4041
-<span class="header">mysql&gt; select * from backends;
-+-------------+------------------+-------+------+------+-------------------+</span>
-<span class="header">| backend_ndx | address          | state | type | uuid | connected_clients |
-+-------------+------------------+-------+------+------+-------------------+</span>
-|           1 | 192.168.1.5:3306 | up    | rw   | NULL |                 0 |
-<span class="header">|           2 | 192.168.1.6:3306 | up    | ro   | NULL |                 0 |
-+-------------+------------------+-------+------+------+-------------------+</span>
-2 rows in set (0.00 sec)
-</code></pre><p>可以从以上查询中看到master和slave状态均为up。</p>
-<p>1）登录proxy节点，创建数据库dufu，并创建一张表t</p>
-<pre><code>mysql&gt; create database dufu<span class="comment">;</span>
-mysql&gt; show databases<span class="comment">;</span>
-mysql&gt; use dufu<span class="comment">;</span>
-mysql&gt; create table t(id int(10),name varchar(20))<span class="comment">;</span>
-mysql&gt; show tables<span class="comment">;</span>
-</code></pre><p>创建完数据库及表后，主从节点上应该都可以看到</p>
-<p>2）关闭同步，分别在master和slave上插入数据</p>
-<pre><code>mysql&gt; slave stop<span class="comment">;</span>
-</code></pre><p>master</p>
-<pre><code>mysql&gt; <span class="function">insert <span class="keyword">into</span> t <span class="title">values</span>(<span class="params"><span class="number">1</span>,<span class="string">'this_is_master'</span></span>)</span>;
-</code></pre><p>slave</p>
-<pre><code>mysql&gt; <span class="function">insert <span class="keyword">into</span> t <span class="title">values</span>(<span class="params"><span class="number">2</span>,<span class="string">'this_is_slave'</span></span>)</span>;
-</code></pre><p>3）proxy上查看结果</p>
-<pre><code>mysql&gt; use dufu;
-<span class="header">mysql&gt; select * from t;
-+------+---------------+</span>
-<span class="header">| id   | name          |
-+------+---------------+</span>
-<span class="header">|    2 | this_is_slave |
-+------+---------------+</span>
-1 row in set (0.00 sec)
-</code></pre><p>从结果可以看到数据是从slave上读取的，并没考虑master节点上的数据。</p>
-<p>直接从proxy上插入数据</p>
-<pre><code>mysql&gt; <span class="function">insert <span class="keyword">into</span> t <span class="title">values</span>(<span class="params"><span class="number">3</span>,<span class="string">'this_is_proxy'</span></span>)</span>;
-</code></pre><p>再次查询</p>
-<pre><code><span class="header">mysql&gt; select * from t;
-+------+---------------+</span>
-<span class="header">| id   | name          |
-+------+---------------+</span>
-<span class="header">|    2 | this_is_slave |
-+------+---------------+</span>
-</code></pre><p>结果显示查询数据没有变化，因为proxy上执行insert相当于写入到了master上，而查询的数据是从slave上读取的。</p>
-<p>master上查询</p>
-<pre><code><span class="header">mysql&gt; select * from t;
-+------+----------------+</span>
-<span class="header">| id   | name           |
-+------+----------------+</span>
-|    1 | this<span class="emphasis">_is_</span>master |
-<span class="header">|    3 | this_is_proxy  |
-+------+----------------+</span>
-</code></pre><p>启用复制，proxy查询</p>
-<pre><code><span class="header">mysql&gt; select * from t;
-+------+----------------+</span>
-<span class="header">| id   | name           |
-+------+----------------+</span>
-|    2 | this<span class="emphasis">_is_</span>slave  |
-|    1 | this<span class="emphasis">_is_</span>master |
-<span class="header">|    3 | this_is_proxy  |
-+------+----------------+</span>
-</code></pre><p>说明此时master上的数据同步到了slave，并且在proxy查询到数据是slave数据库的数据。此时，可以看到MySQLProxy实现了分离。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/MySQL/">MySQL</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/09/06/MySQL读写分离原理及搭建/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/06/MySQL读写分离原理及搭建/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
