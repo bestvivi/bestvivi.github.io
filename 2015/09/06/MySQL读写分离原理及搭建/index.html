@@ -25,7 +25,7 @@ MySQL读写分离最大的作用无非是增加架构的处理能力。对于读
 MySQL读写分离能提高系统性能的原因在于：">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/MySQL读写分离01.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/MySQL读写分离02.png">
-<meta property="og:updated_time" content="2015-09-06T06:48:05.903Z">
+<meta property="og:updated_time" content="2015-09-06T06:50:24.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL读写分离原理及搭建">
 <meta name="twitter:description" content="MySQL读写分离原理
@@ -97,7 +97,7 @@ MySQL读写分离能提高系统性能的原因在于：">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL读写分离原理"><span class="toc-number">1.</span> <span class="toc-text">MySQL读写分离原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQLProxy介绍"><span class="toc-number">2.</span> <span class="toc-text">MySQLProxy介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL读写分离配置"><span class="toc-number">3.</span> <span class="toc-text">MySQL读写分离配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建用户并分配权限"><span class="toc-number">3.1.</span> <span class="toc-text">创建用户并分配权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启用MySQL复制"><span class="toc-number">3.2.</span> <span class="toc-text">启用MySQL复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启用MySQLProxy代理服务器"><span class="toc-number">3.3.</span> <span class="toc-text">启用MySQLProxy代理服务器</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL读写分离原理"><span class="toc-number">1.</span> <span class="toc-text">MySQL读写分离原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQLProxy介绍"><span class="toc-number">2.</span> <span class="toc-text">MySQLProxy介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL读写分离配置"><span class="toc-number">3.</span> <span class="toc-text">MySQL读写分离配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建用户并分配权限"><span class="toc-number">3.1.</span> <span class="toc-text">创建用户并分配权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启用MySQL复制"><span class="toc-number">3.2.</span> <span class="toc-text">启用MySQL复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#启用MySQLProxy代理服务器"><span class="toc-number">3.3.</span> <span class="toc-text">启用MySQLProxy代理服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">3.4.</span> <span class="toc-text">测试</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -162,7 +162,7 @@ mysql-pro <span class="number">25722</span> mysql   <span class="number">10u</sp
 <span class="preprocessor"># lsof -i:<span class="number">4041</span></span>
 COMMAND     PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 mysql-pro <span class="number">25722</span> mysql   <span class="number">11u</span>  IPv4 <span class="number">762432</span>      <span class="number">0</span>t0  TCP *:houston (LISTEN)
-</code></pre><p>####　测试<br>保证mysqlproxy节点上可执行mysql 。通过复制同步帐号连接proxy</p>
+</code></pre><h4 id="测试">测试</h4><p>保证mysqlproxy节点上可执行mysql 。通过复制同步帐号连接proxy</p>
 <pre><code># mysql -h 192.168.1.2 -ulibai -p --port=4040
 <span class="header">mysql&gt; show databases;
 +--------------------+</span>
