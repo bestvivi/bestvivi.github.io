@@ -16,7 +16,7 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
 <meta property="og:description" content="Amoebe介绍
 Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba for Mysql软件。
 这个软件基于Java致力于MySQL的分布式数据库前端代理层，处于在应用和数据库之间，对客户端透明，它主要在应用层访问MySQL的时候充当SQL路由功能，解析应用传递过来的SQL语句，专注于分布式数据库代理层（Database Proxy）开发。具有负载均衡、高可用性、SQL">
-<meta property="og:updated_time" content="2015-09-06T09:39:05.210Z">
+<meta property="og:updated_time" content="2015-09-07T08:45:03.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Amoebe实现MySQL读写分离">
 <meta name="twitter:description" content="Amoebe介绍
@@ -198,37 +198,31 @@ Amoeba(变形虫)项目，该开源框架于2008年 开始发布一款 Amoeba fo
 
 <span class="tag">&lt;/<span class="title">amoeba:dbServers</span>&gt;</span>
 </code></pre><p>配置amoebe.xml</p>
-<pre><code>&lt;!<span class="comment">-- port --&gt; </span>
-                        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"port"</span>&gt;<span class="number">8066</span>&lt;/<span class="keyword">property</span>&gt; 
+<pre><code><span class="comment">&lt;!-- port --&gt;</span> 
+                        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"port"</span>&gt;</span>8066<span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
                         \\定义amoeba读写分离proxy对外代理的端口
-                        &lt;!<span class="comment">-- bind ipAddress --&gt; </span>
-                        &lt;!<span class="comment">--  </span>
-                        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"ipAddress"</span>&gt;<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>&lt;/<span class="keyword">property</span>&gt; \\这个是绑定端口的ip，注释掉了，说明<span class="number">8066</span>端口绑定在<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span> 上面          <span class="comment">--&gt; </span>
-                         &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"manager"</span>&gt;${clientConnectioneManager}&lt;/<span class="keyword">property</span>&gt; 
+                        <span class="comment">&lt;!-- bind ipAddress --&gt;</span> 
+                        <span class="comment">&lt;!--  
+                        &lt;property name="ipAddress"&gt;127.0.0.1&lt;/property&gt; \\这个是绑定端口的ip，注释掉了，说明8066端口绑定在0.0.0.0/0.0.0.0 上面          --&gt;</span> 
+                         <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"manager"</span>&gt;</span>${clientConnectioneManager}<span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
 
-                        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"authenticator"</span>&gt; 
-                                &lt;bean <span class="type">class</span>=<span class="string">"com.meidusa.amoeba.mysql.server.MysqlClientAuthenticator"</span>&gt; 
+                        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"authenticator"</span>&gt;</span> 
+                                <span class="tag">&lt;<span class="title">bean</span> <span class="attribute">class</span>=<span class="value">"com.meidusa.amoeba.mysql.server.MysqlClientAuthenticator"</span>&gt;</span> 
 
-                                        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"user"</span>&gt;root&lt;/<span class="keyword">property</span>&gt; 
+                                        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"user"</span>&gt;</span>root<span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
                                                         \\定义通过amoeba登录的用户名       
-                                        &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"password"</span>&gt;root&lt;/<span class="keyword">property</span>&gt; 
-                                                         \\相应的这个就是密码了。          定义proxy的管理帐号密码，客户端和程序只需要连接proxy的帐号密码即可，相当于中间件封装
+                                        <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span>&gt;</span>root<span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
+                                                         \\相应的这个就是密码了.定义proxy的管理帐号密码，客户端和程序只需要连接proxy的帐号密码即可，相当于中间件封装
 
-        &lt;!<span class="comment">--  </span>
-                Each ConnectionManager will start <span class="keyword">as</span> thread 
-                manager responsible <span class="keyword">for</span> <span class="keyword">the</span> Connection IO <span class="command">read</span> , Death Detection 
-\\每个ConnectionManager 都做为一个线程启动 
-\\manager 负责Connection IO读写/死亡检测
-
-                &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"LRUMapSize"</span>&gt;<span class="number">1500</span>&lt;/<span class="keyword">property</span>&gt; 
-                &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"defaultPool"</span>&gt;master &lt;/<span class="keyword">property</span>&gt; 
+                <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"LRUMapSize"</span>&gt;</span>1500<span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
+                <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"defaultPool"</span>&gt;</span>master <span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
  \\定义默认的池，一些除了SELECT\UPDATE\INSERT\DELETE的语句都会在defaultPool执行
 
-                &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"writePool"</span>&gt;master&lt;/<span class="keyword">property</span>&gt;
+                <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"writePool"</span>&gt;</span>master<span class="tag">&lt;/<span class="title">property</span>&gt;</span>
 \\定义写的池，这里的master就是在dbServer.xml中的master
-                &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"readPool"</span>&gt; readPool &lt;/<span class="keyword">property</span>&gt; 
+                <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"readPool"</span>&gt;</span> readPool <span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
                    \\定义读的池，这里的readPool就是在dbserver.xml中的readPool
-                &lt;<span class="keyword">property</span> <span class="property">name</span>=<span class="string">"needParse"</span>&gt;<span class="constant">true</span>&lt;/<span class="keyword">property</span>&gt; 
+                <span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"needParse"</span>&gt;</span>true<span class="tag">&lt;/<span class="title">property</span>&gt;</span> 
 </code></pre><p><strong>启动amoebe</strong></p>
 <pre><code><span class="preprocessor"># ./amoeba start &amp;</span>
 [<span class="number">1</span>] <span class="number">2381</span>

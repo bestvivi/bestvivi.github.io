@@ -20,7 +20,7 @@ MySQL读写分离最大的作用无非是增加架构的处理能力。对于读
 MySQL读写分离能提高系统性能的原因在于：">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/MySQL读写分离01.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/MySQL读写分离02.png">
-<meta property="og:updated_time" content="2015-09-06T06:50:24.177Z">
+<meta property="og:updated_time" content="2015-09-07T08:30:22.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL读写分离原理及搭建">
 <meta name="twitter:description" content="MySQL读写分离原理
@@ -118,7 +118,7 @@ MySQL读写分离能提高系统性能的原因在于：">
 <li>增加冗余，提高可用性。</li>
 </ul>
 <h3 id="MySQLProxy介绍">MySQLProxy介绍</h3><hr>
-<p>下面使用MySQL官方提供的数据库代理层产品<a href="MySQLProxy">MySQLProxy</a>。<a href="MySQLProxy">MySQLProxy</a>实际上是在客户端请求与MySQLServer之间建立了一个连接池。所有客户端请求都是发向<a href="MySQLProxy">MySQLProxy</a>，然后经由<a href="MySQLProxy">MySQLProxy</a>进行相应的分析，判断出是读操作还是写操作，分发至对应的MySQLServer上。对于多节点Slave集群，也可以起做到<strong>负载均衡</strong>的效果。</p>
+<p>下面使用MySQL官方提供的数据库代理层产品<a href="MySQLProxy">MySQLProxy</a>搭建读写分离。<a href="MySQLProxy">MySQLProxy</a>实际上是在客户端请求与MySQLServer之间建立了一个连接池。所有客户端请求都是发向<a href="MySQLProxy">MySQLProxy</a>，然后经由<a href="MySQLProxy">MySQLProxy</a>进行相应的分析，判断出是读操作还是写操作，分发至对应的MySQLServer上。对于多节点Slave集群，也可以起做到<strong>负载均衡</strong>的效果。</p>
 <p><img src="http://blogyangwei.qiniudn.com/MySQL读写分离02.png" alt="MySQLProxy示意图"></p>
 <h3 id="MySQL读写分离配置">MySQL读写分离配置</h3><hr>
 <p>MySQL环境准备</p>
