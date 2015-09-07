@@ -71,6 +71,81 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" title="MySQL Cluster搭建MySQL高可用性方案讨论" itemprop="url">MySQL Cluster搭建MySQL高可用性方案讨论</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
+		
+  <p class="article-time">
+    <time datetime="2015-09-07T09:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>MySQLCluster介绍以及搭建可以参考  <a href="http://bestvivi.com/2015/09/06/MySQL_Cluster搭建及配置">传送门</a></p>
+<p>MySQL Cluster主要包括三种节点：</p>
+<ul>
+<li>数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB</li>
+<li>SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL</li>
+<li>管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM</li>
+</ul>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"></p>
+<p>作为集群，数据节点以及SQL节点都应该能够进行扩展。MySQL Cluster可以很容易实现扩展，只需要在管理节点中进行配置即可。如图。这里的SQL节点有多个，因此就会有多个访问集群的入口。</p>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster03.png" alt="MySQLCluster扩展版"></p>
+<p>MySQLCluster扩展版中入口节点有多个，如果在SQL上在添加一层负载均衡层就可以实现对SQL节点的分布式管理，统一对集群访问入口并实现负载均衡的功能，同时避免单点故障。</p>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster04.png" alt="MySQLCluster加强版"></p>
+<p>Load balance层，可以选用<strong>软件负载均衡</strong>，包括我在测试中使用的是lvs+keepalived，既能保证负载均衡也能保证单点故障。也可以采用<strong>硬件负载均衡</strong>的方式，比如F5来实现。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/MySQL-Cluster/">MySQL Cluster</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/09/06/MySQL_Cluster搭建及配置/" title="MySQL Cluster搭建及配置" itemprop="url">MySQL Cluster搭建及配置</a>
   </h1>
   <p class="article-author">By
@@ -418,70 +493,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/08/25/Git在本地新建仓库并提交到Github/" title="Git在本地新建仓库并提交到Github" itemprop="url">Git在本地新建仓库并提交到Github</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-25T07:12:20.000Z" itemprop="datePublished"> 发表于 2015-08-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="https://github.com/">Github</a>作为当前使用最广的开源代码库以及版本控制系统，在码农圈受到的极大欢迎。<br/>本人作为一只小白，虽然很早就了解github，但并未在实际开发中真正使用上。这篇文章只是一次实践尝试，通过git命令在本地新建仓库并提交到github远程服务器。<br>
-        
-        
-        <p class="article-more-link">
-          
-            <a href="/2015/08/25/Git在本地新建仓库并提交到Github/#more">Read More</a>
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Git/">Git</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Git/">Git</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/08/25/Git在本地新建仓库并提交到Github/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/08/25/Git在本地新建仓库并提交到Github/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -504,7 +515,7 @@
 		  
 		
 		  
-			<li><a href="/categories/MySQL/" title="MySQL">MySQL<sup>5</sup></a></li>
+			<li><a href="/categories/MySQL/" title="MySQL">MySQL<sup>6</sup></a></li>
 		  
 		
 		</ul>
@@ -521,11 +532,11 @@
 			
 		
 			
-				<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
+				<li><a href="/tags/MySQL-Cluster/" title="MySQL Cluster">MySQL Cluster<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/MySQL-Cluster/" title="MySQL Cluster">MySQL Cluster<sup>1</sup></a></li>
+				<li><a href="/tags/Markdown/" title="Markdown">Markdown<sup>1</sup></a></li>
 			
 		
 			
