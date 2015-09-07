@@ -96,19 +96,12 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>MySQLCluster介绍以及搭建可以参考  <a href="http://bestvivi.com/2015/09/06/MySQL_Cluster搭建及配置">传送门</a></p>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"></p>
-<p>MySQL Cluster主要包括三种节点：</p>
-<ul>
-<li>数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB</li>
-<li>SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL</li>
-<li>管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM</li>
-</ul>
-<p>作为集群，数据节点以及SQL节点都应该能够进行扩展。MySQL Cluster可以很容易实现扩展，只需要在管理节点中进行配置即可。如图。这里的SQL节点有多个，因此就会有多个访问集群的入口。</p>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster03.png" alt="MySQLCluster扩展版"></p>
-<p>MySQLCluster扩展版中入口节点有多个，如果在SQL上在添加一层负载均衡层就可以实现对SQL节点的分布式管理，统一对集群访问入口并实现负载均衡的功能，同时避免单点故障。</p>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster04.png" alt="MySQLCluster加强版"></p>
-<p>Load balance层，可以选用<strong>软件负载均衡</strong>，包括我在测试中使用的是lvs+keepalived，既能保证负载均衡也能保证单点故障。也可以采用<strong>硬件负载均衡</strong>的方式，比如F5来实现。</p>
-
+<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"><br>
+        
+          <p class="article-more-link">
+            <a href="/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/#more">阅读更多</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">

@@ -6,43 +6,19 @@
   
   <title>MySQL Cluster搭建MySQL高可用性方案讨论 | vivi の blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQLCluster介绍以及搭建可以参考  传送门
-
-MySQL Cluster主要包括三种节点：
-
-数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB
-SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL
-管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM
-
-作">
+  <meta name="description" content="MySQLCluster介绍以及搭建可以参考  传送门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL Cluster搭建MySQL高可用性方案讨论">
 <meta property="og:url" content="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/index.html">
 <meta property="og:site_name" content="vivi の blog">
-<meta property="og:description" content="MySQLCluster介绍以及搭建可以参考  传送门
-
-MySQL Cluster主要包括三种节点：
-
-数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB
-SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL
-管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM
-
-作">
+<meta property="og:description" content="MySQLCluster介绍以及搭建可以参考  传送门">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster02.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster03.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster04.png">
-<meta property="og:updated_time" content="2015-09-07T07:57:00.746Z">
+<meta property="og:updated_time" content="2015-09-07T07:57:56.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL Cluster搭建MySQL高可用性方案讨论">
-<meta name="twitter:description" content="MySQLCluster介绍以及搭建可以参考  传送门
-
-MySQL Cluster主要包括三种节点：
-
-数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB
-SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL
-管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM
-
-作">
+<meta name="twitter:description" content="MySQLCluster介绍以及搭建可以参考  传送门">
   
   
     <link rel="icon" href="/favicon.png">
@@ -122,8 +98,7 @@ SQL节点：查询入口。因为需要消耗较大资源，因此可以进行�
     <div class="article-entry" itemprop="articleBody">
       
         <p>MySQLCluster介绍以及搭建可以参考  <a href="http://bestvivi.com/2015/09/06/MySQL_Cluster搭建及配置">传送门</a></p>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"></p>
-<p>MySQL Cluster主要包括三种节点：</p>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"><br><a id="more"></a><br>MySQL Cluster主要包括三种节点：</p>
 <ul>
 <li>数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB</li>
 <li>SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL</li>
