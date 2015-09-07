@@ -4,19 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>viviのblog</title>
+  <title>vivi の blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="vivi の blog">
 <meta property="og:type" content="website">
-<meta property="og:title" content="viviのblog">
+<meta property="og:title" content="vivi の blog">
 <meta property="og:url" content="http://bestvivi.com/index.html">
-<meta property="og:site_name" content="viviのblog">
+<meta property="og:site_name" content="vivi の blog">
 <meta property="og:description" content="vivi の blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="viviのblog">
+<meta name="twitter:title" content="vivi の blog">
 <meta name="twitter:description" content="vivi の blog">
-  
-    <link rel="alternative" href="/atom.xml" title="viviのblog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -34,7 +32,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">viviのblog</a>
+        <a href="/" id="logo">vivi の blog</a>
       </h1>
       
         <h2 id="subtitle-wrap">
@@ -52,8 +50,6 @@
         
       </nav>
       <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
@@ -100,13 +96,13 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>MySQLCluster介绍以及搭建可以参考  <a href="http://bestvivi.com/2015/09/06/MySQL_Cluster搭建及配置">传送门</a></p>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"></p>
 <p>MySQL Cluster主要包括三种节点：</p>
 <ul>
 <li>数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB</li>
 <li>SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL</li>
 <li>管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM</li>
 </ul>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"></p>
 <p>作为集群，数据节点以及SQL节点都应该能够进行扩展。MySQL Cluster可以很容易实现扩展，只需要在管理节点中进行配置即可。如图。这里的SQL节点有多个，因此就会有多个访问集群的入口。</p>
 <p><img src="http://blogyangwei.qiniudn.com/mycluster03.png" alt="MySQLCluster扩展版"></p>
 <p>MySQLCluster扩展版中入口节点有多个，如果在SQL上在添加一层负载均衡层就可以实现对SQL节点的分布式管理，统一对集群访问入口并实现负载均衡的功能，同时避免单点故障。</p>
@@ -165,7 +161,7 @@
 <p>MySQL Cluster可由多台服务器组成的、同时对外提供数据管理服务的分布式集群系统。通过合理的配置，可以将服务请求在多台物理机上分发实现负载均衡 ；同时内部实现了冗余机制，在部分服务器宕机的情况下，整个集群对外提供的服务不受影响，从而能达到99.999%以上的高可用性。</p>
         
           <p class="article-more-link">
-            <a href="/2015/09/06/MySQL_Cluster搭建及配置/#more">Read More</a>
+            <a href="/2015/09/06/MySQL_Cluster搭建及配置/#more">阅读更多</a>
           </p>
         
       
@@ -223,7 +219,7 @@
 <p>Amoeba 主要解决的以下几个问题：<br>
         
           <p class="article-more-link">
-            <a href="/2015/09/06/Amobe实现MySQL读写分离/#more">Read More</a>
+            <a href="/2015/09/06/Amobe实现MySQL读写分离/#more">阅读更多</a>
           </p>
         
       
@@ -279,7 +275,7 @@
 <p>MySQL读写分离能提高系统性能的原因在于：<br>
         
           <p class="article-more-link">
-            <a href="/2015/09/06/MySQL读写分离原理及搭建/#more">Read More</a>
+            <a href="/2015/09/06/MySQL读写分离原理及搭建/#more">阅读更多</a>
           </p>
         
       
@@ -343,7 +339,7 @@
 <li>slave重做中继日志中的事件，将改变应用到自己的数据库中。
         
           <p class="article-more-link">
-            <a href="/2015/09/06/MySQL复制介绍及搭建/#more">Read More</a>
+            <a href="/2015/09/06/MySQL复制介绍及搭建/#more">阅读更多</a>
           </p>
         
       
@@ -408,7 +404,7 @@
 </code></pre>
         
           <p class="article-more-link">
-            <a href="/2015/09/06/MySQL安装及配置/#more">Read More</a>
+            <a href="/2015/09/06/MySQL安装及配置/#more">阅读更多</a>
           </p>
         
       
