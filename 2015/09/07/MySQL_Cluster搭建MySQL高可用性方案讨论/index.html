@@ -4,38 +4,50 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>MySQL安装及配置 | viviのblog</title>
+    <title>MySQL Cluster搭建MySQL高可用性方案讨论 | viviのblog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="vivi">
     
 
     
-    <meta name="description" content="MySQL安装
-MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取消，取而代之的是cmake工具。下面将介绍在CentOS上进行MySQL 5.5安装。
-1 下载cmake
-# wget http://down1.chinaunix.net/distfiles/cmake-2.8.10.2.tar.gz
+    <meta name="description" content="MySQLCluster介绍以及搭建可以参考  传送门
+MySQL Cluster主要包括三种节点：
 
-# tar zxvf cmake-2.8.10.2.tar.gz">
+数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB
+SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL
+管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM
+
+
+作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL安装及配置">
-<meta property="og:url" content="http://bestvivi.com/2015/09/06/MySQL安装及配置/index.html">
+<meta property="og:title" content="MySQL Cluster搭建MySQL高可用性方案讨论">
+<meta property="og:url" content="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/index.html">
 <meta property="og:site_name" content="viviのblog">
-<meta property="og:description" content="MySQL安装
-MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取消，取而代之的是cmake工具。下面将介绍在CentOS上进行MySQL 5.5安装。
-1 下载cmake
-# wget http://down1.chinaunix.net/distfiles/cmake-2.8.10.2.tar.gz
+<meta property="og:description" content="MySQLCluster介绍以及搭建可以参考  传送门
+MySQL Cluster主要包括三种节点：
 
-# tar zxvf cmake-2.8.10.2.tar.gz">
-<meta property="og:updated_time" content="2015-09-06T03:49:14.554Z">
+数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB
+SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL
+管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM
+
+
+作">
+<meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster02.png">
+<meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster03.png">
+<meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster04.png">
+<meta property="og:updated_time" content="2015-09-07T01:52:28.245Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL安装及配置">
-<meta name="twitter:description" content="MySQL安装
-MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取消，取而代之的是cmake工具。下面将介绍在CentOS上进行MySQL 5.5安装。
-1 下载cmake
-# wget http://down1.chinaunix.net/distfiles/cmake-2.8.10.2.tar.gz
+<meta name="twitter:title" content="MySQL Cluster搭建MySQL高可用性方案讨论">
+<meta name="twitter:description" content="MySQLCluster介绍以及搭建可以参考  传送门
+MySQL Cluster主要包括三种节点：
 
-# tar zxvf cmake-2.8.10.2.tar.gz">
+数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB
+SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL
+管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM
+
+
+作">
 
     
     
@@ -85,14 +97,14 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/09/06/MySQL安装及配置/" title="MySQL安装及配置" itemprop="url">MySQL安装及配置</a>
+      <a href="/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" title="MySQL Cluster搭建MySQL高可用性方案讨论" itemprop="url">MySQL Cluster搭建MySQL高可用性方案讨论</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="vivi" target="_blank" itemprop="author">vivi</a>
 		
   <p class="article-time">
-    <time datetime="2015-09-06T09:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-06</time>
+    <time datetime="2015-09-07T09:00:00.000Z" itemprop="datePublished"> 发表于 2015-09-07</time>
     
   </p>
 </header>
@@ -101,84 +113,24 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL安装"><span class="toc-number">1.</span> <span class="toc-text">MySQL安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MySQL常用配置"><span class="toc-number">2.</span> <span class="toc-text">MySQL常用配置</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="MySQL安装">MySQL安装</h3><hr>
-<p>MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取消，取而代之的是cmake工具。下面将介绍在CentOS上进行MySQL 5.5安装。</p>
-<p>1 下载cmake</p>
-<pre><code><span class="preprocessor"># wget http:<span class="comment">//down1.chinaunix.net/distfiles/cmake-2.8.10.2.tar.gz</span></span>
-
-<span class="preprocessor"># tar zxvf cmake-<span class="number">2.8</span><span class="number">.10</span><span class="number">.2</span>.tar.gz</span>
-
-<span class="preprocessor"># cd cmake-<span class="number">2.8</span><span class="number">.10</span><span class="number">.2</span></span>
-
-<span class="preprocessor"># ./configure</span>
-
-<span class="preprocessor"># make &amp;&amp; make install</span>
-</code></pre><a id="more"></a>
-<p>2 确保以下软件包安装</p>
-<pre><code># yum <span class="operator"><span class="keyword">install</span> -y gcc* gcc-<span class="keyword">c</span>++*  bison autoconf* automake* zlib* libxml* ncurses-devel* libgcrypt* libtool*</span>
-</code></pre><p>3 建立mysql安装目录及数据存放目录</p>
-<p>安装路径:</p>
-<pre><code># <span class="keyword">mkdir</span> /usr/<span class="keyword">local</span>/mysql
-</code></pre><p>数据库路径:</p>
-<pre><code># mkdir <span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>data
-</code></pre><p>创建用户和用户组</p>
-<pre><code><span class="id">#groupadd</span> mysql
-
-<span class="id">#useradd</span> -g mysql mysql
-</code></pre><p>赋予数据存放目录权限</p>
-<pre><code><span class="preprocessor"># chown mysql:mysql -R /data/mysql</span>
-</code></pre><p>4 编译安装mysql5.5.37</p>
-<pre><code><span class="preprocessor"># tar -zxvf mysql-<span class="number">5.5</span><span class="number">.37</span>.tar.gz</span>
-
-<span class="preprocessor"># cd mysql-<span class="number">5.5</span><span class="number">.37</span>  </span>
-
-<span class="preprocessor"># cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql -DMYSQL_UNIX_ADDR=/usr/local/mysql/tmp/mysql.sock -DDEFAULT_CHARSET=utf8 -DDEFAULT_COLLATION=utf8_general_ci -DWITH_EXTRA_CHARSETS:STRING=utf8,gbk -DWITH_INNOBASE_STORAGE_ENGINE=<span class="number">1</span> -DWITH_READLINE=<span class="number">1</span> -DENABLED_LOCAL_INFILE=<span class="number">1</span> -DMYSQL_DATADIR=/usr/local/mysql/data/ -DMYSQL_USER=mysql -DMYSQL_TCP_PORT=<span class="number">3306</span></span>
-
-<span class="preprocessor"># make &amp;&amp; make install</span>
-</code></pre><p>更改/usr/local/mysql所属用户mysql</p>
-<p>5 配置并初始化数据库</p>
-<pre><code><span class="preprocessor"># cp support-files/mysql.server /etc/init.d/mysqld</span>
-
-<span class="preprocessor"># chmod a+x /etc/init.d/mysqld</span>
-
-<span class="preprocessor"># chkconfig --add mysqld</span>
-
-<span class="preprocessor"># chkconfig mysqld on</span>
-</code></pre><p>添加mysql/bin到/etc/profile PATH变量中</p>
-<p>创建my.cnf配置文件</p>
-<pre><code># <span class="keyword">cp</span> /etc/my.<span class="keyword">cnf</span> /etc/my.<span class="keyword">cnf</span>.bak
-
-# <span class="keyword">cp</span> support-<span class="keyword">files</span>/my-medium.<span class="keyword">cnf</span> /etc/my.<span class="keyword">cnf</span>
-</code></pre><p>初始化数据库</p>
-<pre><code># scripts<span class="regexp">/mysql_install_db --user=mysql --basedir=/u</span>sr<span class="regexp">/local/my</span>sql --datadir=<span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>data
-</code></pre><p>启动数据库</p>
-<pre><code><span class="preprocessor"># service mysqld start</span>
-</code></pre><p>修改mysql密码</p>
-<pre><code><span class="preprocessor"># mysqladmin -u root password <span class="string">'root'</span></span>
-</code></pre><h3 id="MySQL常用配置">MySQL常用配置</h3><hr>
-<p>修改字符编码<br>在[mysqld]下面添加：</p>
-<p><code>default-character-set=utf8</code></p>
-<p>设置数据库最大连接数</p>
-<p><code>max_connections=1000</code></p>
-<p>查看mysql默认的存储引擎</p>
-<p><code>show engines;</code></p>
-<p>修改默认引擎为innodb</p>
-<p>设置InnoDB为默认引擎：在配置文件my.cnf中的 [mysqld] 下面加入<code>default-storage-engine=INNODB</code>。重启mysql服务</p>
-<p>查看表的存储引擎</p>
-<p><code>show table status from 数据库库名 where name=&#39;表名&#39;</code></p>
-<p>查看mysql是否自动提交</p>
-<pre><code><span class="header">mysql&gt; show variables like 'autocommit';
-+---------------+-------+</span>
-<span class="header">| Variable_name | Value |
-+---------------+-------+</span>
-<span class="header">| autocommit    | ON    |
-+---------------+-------+</span>
-1 row in set (0.00 sec)
-</code></pre>  
+		<p>MySQLCluster介绍以及搭建可以参考  <a href="http://bestvivi.com/2015/09/06/MySQL_Cluster搭建及配置">传送门</a></p>
+<p>MySQL Cluster主要包括三种节点：</p>
+<ul>
+<li>数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB</li>
+<li>SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL</li>
+<li>管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM</li>
+</ul>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"></p>
+<p>作为集群，数据节点以及SQL节点都应该能够进行扩展。MySQL Cluster可以很容易实现扩展，只需要在管理节点中进行配置即可。如图。这里的SQL节点有多个，因此就会有多个访问集群的入口。</p>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster03.png" alt="MySQLCluster扩展版"></p>
+<p>MySQLCluster扩展版中入口节点有多个，如果在SQL上在添加一层负载均衡层就可以实现对SQL节点的分布式管理，统一对集群访问入口并实现负载均衡的功能，同时避免单点故障。</p>
+<p><img src="http://blogyangwei.qiniudn.com/mycluster04.png" alt="MySQLCluster加强版"></p>
+<p>Load balance层，可以选用<strong>软件负载均衡</strong>，包括我在测试中使用的是lvs+keepalived，既能保证负载均衡也能保证单点故障。也可以采用<strong>硬件负载均衡</strong>的方式，比如F5来实现。</p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -191,7 +143,7 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/MySQL/">MySQL</a>
+  <span></span> <a href="/tags/MySQL-Cluster/">MySQL Cluster</a>
   </div>
 
 </div>
@@ -235,19 +187,11 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2015/09/06/MySQL复制介绍及搭建/" title="MySQL复制介绍及搭建">
-  <strong>上一篇：</strong><br/>
-  <span>
-  MySQL复制介绍及搭建</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2015/08/25/Git在本地新建仓库并提交到Github/"  title="Git在本地新建仓库并提交到Github">
+<a href="/2015/09/06/MySQL_Cluster搭建及配置/"  title="MySQL Cluster搭建及配置">
  <strong>下一篇：</strong><br/> 
- <span>Git在本地新建仓库并提交到Github
+ <span>MySQL Cluster搭建及配置
 </span>
 </a>
 </div>
@@ -256,7 +200,7 @@ MySQL从5.5版本开始，通过./configure进行编译配置方式已经被取�
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/09/06/MySQL安装及配置/" data-title="MySQL安装及配置" data-url="http://bestvivi.com/2015/09/06/MySQL安装及配置/"></div>
+	<div class="ds-thread" data-thread-key="2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" data-title="MySQL Cluster搭建MySQL高可用性方案讨论" data-url="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/"></div>
 </section>
 
 
