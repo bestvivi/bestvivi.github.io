@@ -16,7 +16,7 @@
 这篇文章下面要介绍如何通过LVS+Keepalived的方式来是吸纳MySQL的高可用性，同时解决以上问题">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql_lvs_keep01.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql_lvs_keep04.png">
-<meta property="og:updated_time" content="2015-09-09T11:11:10.595Z">
+<meta property="og:updated_time" content="2015-09-09T11:14:55.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL主主复制+LVS+Keepalived实现MySQL高可用性">
 <meta name="twitter:description" content="MySQL复制能够保证数据的冗余的同时可以做读写分离来分担系统压力，如果是主主复制还可以很好的避免主节点的单点故障。但是MySQL主主复制存在一些问题无法满足我们的实际需要：未提供统一访问入口来实现负载均衡，如果其中master宕掉的话需要手动切换到另外一个master，而不能自动进行切换。
@@ -105,6 +105,7 @@
 <p>这篇文章下面要介绍如何通过LVS+Keepalived的方式来是吸纳MySQL的高可用性，同时解决以上问题。</p>
 <h3 id="Keepalived和LVS介绍">Keepalived和LVS介绍</h3><hr>
 <p><a href="http://www.keepalived.org/" target="_blank" rel="external">Keepalived</a>是一个基于<a href="http://datatracker.ietf.org/wg/vrrp/documents/" target="_blank" rel="external">VRRP</a>（虚拟路由冗余协议）可用来实现服务高可用性的软件方案，避免出现单点故障。Keepalived一般用来实现轻量级高可用性，且不需要共享存储，一般用于两个节点之间，常见有LVS+Keepalived、Nginx+Keepalived组合。</p>
+<a id="more"></a>
 <p><a href="http://www.linux-vs.org/index.html" target="_blank" rel="external">LVS</a>(Linux Virtual Server)是一个高可用性虚拟的服务器集群系统。本项目在1998年5月由章文嵩博士成立，是中国国内最早出现的自由软件项目之一。<br>LVS主要用于多服务器的负载均衡，作用于网络层。LVS构建的服务器集群系统中，前端的负载均衡层被称为Director Server；后端提供服务的服务器组层被称为Real Server。通过下图可以大致了解LVS的基础架构。<br><img src="http://blogyangwei.qiniudn.com/mysql_lvs_keep01.png" alt="abc"></p>
 <p>LVS有三种工作模式，分别是DR（Direct Routing 直接路由）、TUN(Tunneling IP隧道）、NAT（Network Address Translation 网络地址转换）。其中TUN模式能够支持更多的Real Server，但需要所有服务器支持IP隧道协议；DR也可以支持相当的Real Server，但需要保证Director Server虚拟网卡与物理网卡在同一网段；NAT扩展性有限，无法支持更多的Real Server，因为所有的请求包和应答包都需要Director Server进行解析再生，影响效率。 同时，LVS负载均衡有10中调度算法，分别是rr、wrr、lc、wlc、lblc、lblcr、dh、sh、sed、nq</p>
 <p>详细的LVS说明请参见 <a href="http://bestvivi.com">传送门</a></p>
