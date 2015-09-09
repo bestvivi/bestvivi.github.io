@@ -98,7 +98,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p><a href="http://bestvivi.com/2015/09/06/MySQL复制介绍及搭建">MySQL复制</a>能够保证数据的冗余的同时可以做读写分离来分担系统压力，如果是主主复制还可以很好的避免主节点的单点故障。但是MySQL主主复制存在一些问题无法满足我们的实际需要：未提供统一访问入口来实现负载均衡，如果其中master宕掉的话需要手动切换到另外一个master，而不能自动进行切换。</p>
-<p>这篇文章下面要介绍如何通过LVS+Keepalived的方式来是吸纳MySQL的高可用性，同时解决以上问题。</p>
+<p>这篇文章下面要介绍如何通过LVS+Keepalived的方式来是实现MySQL的高可用性，同时解决以上问题。</p>
 <h3 id="Keepalived和LVS介绍">Keepalived和LVS介绍</h3><hr>
 <p><a href="http://www.keepalived.org/">Keepalived</a>是一个基于<a href="http://datatracker.ietf.org/wg/vrrp/documents/">VRRP</a>（虚拟路由冗余协议）可用来实现服务高可用性的软件方案，避免出现单点故障。Keepalived一般用来实现轻量级高可用性，且不需要共享存储，一般用于两个节点之间，常见有LVS+Keepalived、Nginx+Keepalived组合。</p>
         
