@@ -24,7 +24,7 @@ MySQL复制有那些好处：
 第二点是减轻数据库服务器的压力，多台服务器的性能一般比单台要好。但是MySQL复制不适合大数据量，大数">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql复制01.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql复制02.png">
-<meta property="og:updated_time" content="2015-09-08T07:42:59.980Z">
+<meta property="og:updated_time" content="2015-09-09T01:19:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL复制介绍及搭建">
 <meta name="twitter:description" content="MySQL复制介绍
@@ -129,14 +129,16 @@ MySQL复制是异步的且串行化的</li>
 </ul>
 <p><img src="http://blogyangwei.qiniudn.com/mysql复制01.png" alt="MySQL复制原理图"></p>
 <h3 id="MySQL复制搭建">MySQL复制搭建</h3><hr>
-<h4 id="环境准备">环境准备</h4><p>master    192.168.1.5    rac1-node.tp-link.net</p>
-<p>slave    192.168.1.6    rac2-node.tp-link.net</p>
+<h4 id="环境准备">环境准备</h4><p>master    192.168.1.5    </p>
+<p>slave    192.168.1.6    </p>
 <p>OS：Oracle Linux 6.1</p>
 <p>MySQL：5.5.37</p>
-<h4 id="Master配置">Master配置</h4><p>分配复制权限</p>
+<h4 id="Master配置">Master配置</h4><p>1）分配复制权限</p>
+<p>主库和从库均需要执行    </p>
 <pre><code>mysql&gt; grant replication client,replication slave <span class="keyword">on</span> *<span class="built_in">.</span>* <span class="keyword">to</span> root@<span class="string">'192.168.1.%'</span> identified <span class="keyword">by</span> <span class="string">'root'</span>;
 Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)
-</code></pre><p>清空日志文件</p>
+</code></pre><p>2）清空日志文件</p>
+<p>主从库都是默认开启二进制日志文件</p>
 <pre><code><span class="header">mysql&gt; show binary logs;
 +------------------+-----------+</span>
 <span class="header">| Log_name         | File_size |
@@ -159,16 +161,22 @@ Query OK, 0 rows affected (0.01 sec)
 <span class="header">| mysql-bin.000001 |       107 |
 +------------------+-----------+</span>
 1 row in set (0.00 sec)
-</code></pre><h4 id="Slave设置">Slave设置</h4><p>1） 修改从服务器server-id</p>
+</code></pre><p>需要注意的是，如果不想清空日志文件的话，需要记录当前master的log_file和log_pos，并在下面启用复制操作时指定这两个参数或者在slave的配置文件指定。</p>
+<h4 id="Slave设置">Slave设置</h4><p>1） 修改从服务器server-id</p>
 <pre><code><span class="comment"># vim /etc/my.cnf</span>
 server-<span class="property">id</span> = <span class="number">2</span>
 </code></pre><p>修改完以后需要重启数据库</p>
 <p>2）清空日志文件，同Master</p>
-<p>3）让slave连接master并开始重做master二进制日志中的事件</p>
+<p>3）启用复制<br>让slave连接master并开始重做master二进制日志中的事件</p>
 <pre><code>mysql&gt; change master to 
 master_host=<span class="string">'192.168.1.5'</span>,master_user=<span class="string">'root'</span>,master_password=<span class="string">'root'</span>,master_port=<span class="number">3306</span>,master_<span class="built_in">log</span>_file=<span class="string">'mysql-bin.000001'</span>,master_<span class="built_in">log</span>_pos=<span class="number">0</span>;
-</code></pre><p>MASTER_LOG_POS的值为0，因为它是日志的开始位置</p>
-<p>这里注意：默认情况下，会同步该用户下所有的DB，可以在/etc/my.inf中通过参数binlog-do-db、binlog-ignore-db设置需要同步的数据库。</p>
+</code></pre><p>master_log_pos的值为0，因为它是日志的开始位置；master_log_file是初始日志文件。如果master日志没有被清空，这里就是当前master的日志信息</p>
+<p>需要注意的是，默认情况下，会同步该用户下所有的DB，如果想限定哪些DB，有3种思路</p>
+<ul>
+<li>在master上的/etc/my.inf中通过参数binlog-do-db、binlog-ignore-db设置需要同步的数据库。</li>
+<li>在执行grant分配权限操作的时候，限定数据库</li>
+<li>在slave上限定数据库使用replicate-do-db=dbname</li>
+</ul>
 <p>4）开启slave</p>
 <pre><code>mysql&gt; start slave;
 Query OK, <span class="number">0</span> <span class="function">rows <span class="title">affected</span> <span class="params">(<span class="number">0.00</span> sec)</span></span>
@@ -254,12 +262,16 @@ mysql&gt; show tables;
 <span class="header">|    1 |
 +------+</span>
 </code></pre><p>通过以上验证，可以看到主服务器上的修改能够正常同步到从服务器。</p>
+<h4 id="补充说明">补充说明</h4><p>1）做了MySQL主从复制以后，使用mysqldump对数据备份时，一定要注意按照如下方式：<br>mysqldump –master-data –single-transaction –user=username –password=password dbname&gt; dumpfilename<br>这样就可以保留file和position的信息，在新搭建一个slave的时候，还原完数据库，file和position的信息也随之更新，接着再start slave 就可以很迅速的完成增量同步。</p>
 <h3 id="其他复制方式">其他复制方式</h3><hr>
-<h4 id="主主复制">主主复制</h4><p>master-slave只能进行单向操作，像网络中的半双工。master-master可以实现服务器之间互相同步，且主主复制可以避免出现单点故障后整个系统宕机。<strong>主主复制最大的问题就是数据插入或更新冲突</strong>。配置方法同主从复制，反过来让slave同步master。注意master_log_file和master_log_pos参数要与master上对应。具体可以参考<a href="https://www.howtoforge.com/mysql_master_master_replication" target="_blank" rel="external">这里</a><br><br></p>
-<h4 id="单一master和多slave">单一master和多slave</h4><p>由一个master和多个slave组成的复制系统比较简单。slave之间并不互相通信，只能与master通信。如果写操作较少，读操作很多，可以采用。可以将读操作分布到其他slave，从而减轻master的压力。但slave增加到一定数量时，slave对master的负载以及网络带宽都会成为问题。<br><br></p>
-<h4 id="主从多级复制">主从多级复制</h4><p>读操作很多可以采用单一maste和多slave，但增大到一定slave后连到master的slaveIO线程太多会造成master压力增大，从而造成数据复制延时。多级复制就是为了解决这个问题。</p>
+<h4 id="主主复制">主主复制</h4><p>master-slave只能进行单向操作，像网络中的半双工。master-master可以实现服务器之间互相同步，且主主复制可以避免出现单点故障后整个系统宕机。<strong>主主复制最大的问题就是数据插入或更新冲突</strong>。配置方法同主从复制，反过来让slave同步master。注意master_log_file和master_log_pos参数要与master上对应。具体可以参考<a href="https://www.howtoforge.com/mysql_master_master_replication" target="_blank" rel="external">这里</a></p>
+<h4 id="单一master和多slave">单一master和多slave</h4><p>由一个master和多个slave组成的复制系统比较简单。slave之间并不互相通信，只能与master通信。如果写操作较少，读操作很多，可以采用。可以将读操作分布到其他slave，从而减轻master的压力。但slave增加到一定数量时，slave对master的负载以及网络带宽都会成为问题。</p>
+<h4 id="主从多级复制">主从多级复制</h4><p>读操作很多可以采用单一maste和多slave，但增大到一定slave后连到master的slaveIO线程太多会造成master压力增大，从而造成数据复制延时。多级复制就是为了解决这个问题。如果想实现主-从（主）-从多级复制，需要设置log-slave-updates参数。同时二进制日志也必须启用。</p>
 <p><img src="http://blogyangwei.qiniudn.com/mysql复制02.png" alt="mysql多级复制"></p>
-<p>当然，增加复制的级联层次，同一个变更传到最底层的Slave所需要经过的MySQL也会更多，同样可能造成延时较长的风险。如果条件允许，倾向于通过拆分成多个Replication集群来解决</p>
+<p>当然，增加复制的级联层次，同一个变更传到最底层的Slave所需要经过的MySQL也会更多，同样可能造成延时较长的风险。如果条件允许，倾向于通过拆分成多个Replication集群来解决。</p>
+<p>参考：</p>
+<p><a href="http://heylinux.com/archives/1004.html" target="_blank" rel="external">http://heylinux.com/archives/1004.html</a></p>
+<p><a href="http://blog.csdn.net/hguisu/article/details/7325124" target="_blank" rel="external">http://blog.csdn.net/hguisu/article/details/7325124</a></p>
 
       
     </div>
