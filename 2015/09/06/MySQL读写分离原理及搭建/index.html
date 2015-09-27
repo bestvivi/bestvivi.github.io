@@ -7,26 +7,20 @@
   <title>MySQL读写分离原理及搭建 | vivi の blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="MySQL读写分离原理
-MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。
-MySQL读写分离最大的作用无非是增加架构的处理能力。对于读操作为主的应用，使用读写分离是最好的场景，因为可以确保master压力更小，而读又可以接受时间上的延迟。
-MySQL读写分离能提高系统性能的原因在于：">
+MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL读写分离原理及搭建">
 <meta property="og:url" content="http://bestvivi.com/2015/09/06/MySQL读写分离原理及搭建/index.html">
 <meta property="og:site_name" content="vivi の blog">
 <meta property="og:description" content="MySQL读写分离原理
-MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。
-MySQL读写分离最大的作用无非是增加架构的处理能力。对于读操作为主的应用，使用读写分离是最好的场景，因为可以确保master压力更小，而读又可以接受时间上的延迟。
-MySQL读写分离能提高系统性能的原因在于：">
+MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/MySQL读写分离01.png">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/MySQL读写分离02.png">
-<meta property="og:updated_time" content="2015-09-08T06:47:41.730Z">
+<meta property="og:updated_time" content="2015-09-27T17:09:36.867Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL读写分离原理及搭建">
 <meta name="twitter:description" content="MySQL读写分离原理
-MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。
-MySQL读写分离最大的作用无非是增加架构的处理能力。对于读操作为主的应用，使用读写分离是最好的场景，因为可以确保master压力更小，而读又可以接受时间上的延迟。
-MySQL读写分离能提高系统性能的原因在于：">
+MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。">
   
   
     <link rel="icon" href="img/vi.ico">
@@ -108,9 +102,9 @@ MySQL读写分离能提高系统性能的原因在于：">
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="MySQL读写分离原理">MySQL读写分离原理</h3><hr>
-<p>MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。<br><img src="http://blogyangwei.qiniudn.com/MySQL读写分离01.png" alt="MySQL读写分离示意图"></p>
+<p>MySQL读写分离基本原理是让master数据库处理写操作，slave数据库处理读操作。master将写操作的变更同步到各个slave节点。<br><a id="more"></a><br><img src="http://blogyangwei.qiniudn.com/MySQL读写分离01.png" alt="MySQL读写分离示意图"></p>
 <p>MySQL读写分离最大的作用无非是<strong>增加架构的处理能力</strong>。对于<strong>读操作为主</strong>的应用，使用读写分离是最好的场景，因为可以确保master压力更小，而读又可以接受时间上的延迟。</p>
-<p>MySQL读写分离能提高系统性能的原因在于：<br><a id="more"></a></p>
+<p>MySQL读写分离能提高系统性能的原因在于：</p>
 <ul>
 <li>物理服务器增加，机器处理能力提升。拿硬件换性能。</li>
 <li>主从只负责各自的读和写，极大程度缓解X锁和S锁争用。</li>
