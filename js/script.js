@@ -80,11 +80,10 @@
         top: offset.top + 25,
         left: offset.left - 25
       }).addClass('on');
-    }else{var $this = $(this),
-      url = $this.attr('data-url'),
+    }else{
+      var url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
       id = 'article-share-box-' + $this.attr('data-id'),
-      offset = $this.offset();
 
     if ($('#' + id).length){
       var box = $('#' + id);
