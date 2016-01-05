@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MySQL主主复制+LVS+Keepalived实现MySQL高可用性 | null</title>
+  <title>MySQL主主复制+LVS+Keepalived实现MySQL高可用性 | 杨一の家</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="MySQL复制能够保证数据的冗余的同时可以做读写分离来分担系统压力，如果是主主复制还可以很好的避免主节点的单点故障。但是MySQL主主复制存在一些问题无法满足我们的实际需要：未提供统一访问入口来实现负载均衡，如果其中master宕掉的话需要手动切换到另外一个master，而不能自动进行切换。
 这篇文章下面要介绍如何通过LVS+Keepalived的方式来是实现MySQL的高可用性，同时解决以上问题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL主主复制+LVS+Keepalived实现MySQL高可用性">
 <meta property="og:url" content="http://bestvivi.com/2015/09/09/MySQL主主复制+LVS+Keepalived实现MySQL高可用性/index.html">
-<meta property="og:site_name">
+<meta property="og:site_name" content="杨一の家">
 <meta property="og:description" content="MySQL复制能够保证数据的冗余的同时可以做读写分离来分担系统压力，如果是主主复制还可以很好的避免主节点的单点故障。但是MySQL主主复制存在一些问题无法满足我们的实际需要：未提供统一访问入口来实现负载均衡，如果其中master宕掉的话需要手动切换到另外一个master，而不能自动进行切换。
 这篇文章下面要介绍如何通过LVS+Keepalived的方式来是实现MySQL的高可用性，同时解决以上问题">
 <meta property="og:image" content="http://blogyangwei.qiniudn.com/mysql_lvs_keep01.png">
@@ -21,7 +21,7 @@
 <meta name="twitter:description" content="MySQL复制能够保证数据的冗余的同时可以做读写分离来分担系统压力，如果是主主复制还可以很好的避免主节点的单点故障。但是MySQL主主复制存在一些问题无法满足我们的实际需要：未提供统一访问入口来实现负载均衡，如果其中master宕掉的话需要手动切换到另外一个master，而不能自动进行切换。
 这篇文章下面要介绍如何通过LVS+Keepalived的方式来是实现MySQL的高可用性，同时解决以上问题">
   
-    <link rel="alternative" href="/atom.xml" title="null" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="杨一の家" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -39,7 +39,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">null</a>
+        <a href="/" id="logo">杨一の家</a>
       </h1>
       
     </div>
@@ -50,6 +50,8 @@
           <a class="main-nav-link" href="/">Home</a>
         
           <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
         
       </nav>
       <nav id="sub-nav">
@@ -428,6 +430,8 @@ TCP  <span class="number">192.168</span><span class="number">.1</span><span clas
     <a href="/" class="mobile-nav-link">Home</a>
   
     <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
   
 </nav>
     
