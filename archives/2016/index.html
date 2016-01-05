@@ -3,21 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>MySQL Cluster搭建MySQL高可用性方案讨论 | 杨一の家</title>
+  <title>Archives: 2016 | 杨一の家</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MySQLCluster介绍以及搭建可以参考  传送门">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MySQL Cluster搭建MySQL高可用性方案讨论">
-<meta property="og:url" content="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/index.html">
+  <meta name="description" content="vivi の blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="杨一の家">
+<meta property="og:url" content="http://bestvivi.com/archives/2016/index.html">
 <meta property="og:site_name" content="杨一の家">
-<meta property="og:description" content="MySQLCluster介绍以及搭建可以参考  传送门">
-<meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster02.png">
-<meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster03.png">
-<meta property="og:image" content="http://blogyangwei.qiniudn.com/mycluster04.png">
-<meta property="og:updated_time" content="2015-09-09T11:24:46.429Z">
+<meta property="og:description" content="vivi の blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL Cluster搭建MySQL高可用性方案讨论">
-<meta name="twitter:description" content="MySQLCluster介绍以及搭建可以参考  传送门">
+<meta name="twitter:title" content="杨一の家">
+<meta name="twitter:description" content="vivi の blog">
   
     <link rel="alternative" href="/atom.xml" title="杨一の家" type="application/atom+xml">
   
@@ -65,89 +61,39 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-MySQL_Cluster搭建MySQL高可用性方案讨论" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" class="article-date">
-  <time datetime="2015-09-07T09:00:00.000Z" itemprop="datePublished">2015-09-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MySQL高可用性/">MySQL高可用性</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      MySQL Cluster搭建MySQL高可用性方案讨论
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2016/01/05/职场为什么不快乐/" class="archive-article-date">
+  <time datetime="2016-01-05T10:10:00.000Z" itemprop="datePublished">1月 5</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2016/01/05/职场为什么不快乐/">职场为什么不快乐[转]</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>MySQLCluster介绍以及搭建可以参考  <a href="http://bestvivi.com/2015/09/06/MySQL_Cluster搭建及配置">传送门</a></p>
-<a id="more"></a>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster02.png" alt="MySQLCluster基础版"><br>MySQL Cluster主要包括三种节点：</p>
-<ul>
-<li>数据节点：存储集群的数据，同时集群软件会自动对数据进行分片并冗余。图中NDB</li>
-<li>SQL节点：查询入口。因为需要消耗较大资源，因此可以进行分布式管理。图中SQL</li>
-<li>管理节点：负责整个Cluster 集群中各个节点的管理工作，包括集群的配置，启动关闭各节点，以及实施数据的备份恢复等。 图中MGM</li>
-</ul>
-<p>作为集群，数据节点以及SQL节点都应该能够进行扩展。MySQL Cluster可以很容易实现扩展，只需要在管理节点中进行配置即可。如图。这里的SQL节点有多个，因此就会有多个访问集群的入口。</p>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster03.png" alt="MySQLCluster扩展版"></p>
-<p>MySQLCluster扩展版中入口节点有多个，如果在SQL上在添加一层负载均衡层就可以实现对SQL节点的分布式管理，统一对集群访问入口并实现负载均衡的功能，同时避免单点故障。</p>
-<p><img src="http://blogyangwei.qiniudn.com/mycluster04.png" alt="MySQLCluster加强版"></p>
-<p>Load balance层，可以选用<strong>软件负载均衡</strong>，包括我在测试中使用的是lvs+keepalived，既能保证负载均衡也能保证单点故障。也可以采用<strong>硬件负载均衡</strong>的方式，比如F5来实现。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-     
-        <a data-url="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" data-id="ciizqgeh1000vcrzts1b9tkp2" class="article-share-link" data-share="baidu" data-title="MySQL Cluster搭建MySQL高可用性方案讨论">share</a>
-      
-	  
-        <a href="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/#ds-thread" class="article-comment-link">comments</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL-Cluster/">MySQL Cluster</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/09/09/MySQL主主复制+LVS+Keepalived实现MySQL高可用性/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          MySQL主主复制+LVS+Keepalived实现MySQL高可用性
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/09/06/MySQL_Cluster搭建及配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">MySQL Cluster搭建及配置</div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
-
-  <section id="comments">
-    <div id="ds-thread" class="ds-thread" data-thread-key="2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/" data-title="MySQL Cluster搭建MySQL高可用性方案讨论" data-url="http://bestvivi.com/2015/09/07/MySQL_Cluster搭建MySQL高可用性方案讨论/"></div>
-  </section>
-
+  
+  
+    </div></section>
+  
 </section>
         
           <aside id="sidebar">
