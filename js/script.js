@@ -61,6 +61,26 @@
     e.stopPropagation();
 
     var $this = $(this),
+      type = $this.attr('data-share'),
+      offset = $this.offset();
+
+    if (type == 'baidu') {
+      var box = $('#article-share-box');
+      shareDataUrl = $this.attr('data-url');
+      shareDataTitle = $this.attr('data-title');
+
+      if (box.hasClass('on')){
+        box.removeClass('on');
+        return;
+      }
+
+      $('.article-share-box.on').hide();
+
+      box.css({
+        top: offset.top + 25,
+        left: offset.left - 25
+      }).addClass('on');
+    }else{var $this = $(this),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
       id = 'article-share-box-' + $this.attr('data-id'),
@@ -97,6 +117,7 @@
       top: offset.top + 25,
       left: offset.left
     }).addClass('on');
+	};
   }).on('click', '.article-share-box', function(e){
     e.stopPropagation();
   }).on('click', '.article-share-box-input', function(){
